@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator and Scanner</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- External QR code library for Generator -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- External library for QR Code Reader -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+
+<body>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page">
+        <div class="home-container">
+            <h1>Welcome to our Website.</h1>
+            <h2>Here You can Generate A QR Code of any Website and also you can Scan any QR</h2>
+            <button onclick="navigateTo('qr-generator-page')">Go to QR Code Generator</button>
+            <button onclick="navigateTo('qr-scanner-page')">Go to QR Code Scanner</button>
+        </div>
+    </div>
+
+    <!-- QR Code Generator Page -->
+    <div id="qr-generator-page" class="page" style="display: none;">
+        <div class="container">
+            <button class="back-btn" onclick="navigateTo('home-page')">← Back</button>
+            <h1>QR Code Generator</h1>
+            <hr />
+            <div class="sqrcode"></div>
+            <div class="qrcode"></div>
+            <input type="text" placeholder="Paste a URL or enter text, then press enter" onchange="generateQr()" class="qr-input" />
+        </div>
+    </div>
+
+    <!-- QR Code Scanner Page -->
+    <div id="qr-scanner-page" class="page" style="display: none;">
+        <div class="container">
+            <button class="back-btn" onclick="navigateTo('home-page')">← Back</button>
+            <h1>Scan QR Codes</h1>
+            <div id="my-qr-reader"></div>
+
+            <div class="scanned-url-box">
+                <h2>Scanned QR Code URL:</h2>
+                <button id="scanned-url-button" style="display: none;" onclick="openScannedUrl()">Open URL</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

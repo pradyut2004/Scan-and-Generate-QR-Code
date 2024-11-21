@@ -1,0 +1,90 @@
+/* Global Styles */
+body {
+    font-family: "Ubuntu", sans-serif;
+    background-color: #b3e5fc; /* Light blue background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333; /* Default text color */
+}
+
+.page {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+}
+
+.home-container {
+    padding: 50px;
+}
+
+h1 {
+    font-size: 48px; /* Larger font size for the home page */
+    margin-bottom: 20px;
+    color: #333;
+}
+
+h2 {
+    font-size: 24px; /* Larger font size for the home page */
+    margin-bottom: 30px;
+    color: #555;
+}
+
+button {
+    padding: 15px 30px;
+    margin: 15px;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #A52A2A; /* Light brown color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #8B4513; /* Darker brown for hover */
+}
+
+.scanned-url-box button {
+    background-color: #28a745;
+}
+
+.container {
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: #ffffff; /* White box */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.back-btn:hover {
+    background-color: #f5c6cb;
+}
+
+/* Larger QR code generator input field */
+.qr-input {
+    font-size: 18px;  /* Increase font size */
+    padding: 10px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}

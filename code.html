@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator and Scanner</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- External QR code library for Generator -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- External library for QR Code Reader -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+
+<body>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page">
+        <div class="home-container">
+            <h1>Welcome to our Website.</h1>
+            <h2>Here You can Generate A QR Code of any Website and also you can Scan any QR</h2>
+            <button onclick="navigateTo('qr-generator-page')">Go to QR Code Generator</button>
+            <button onclick="navigateTo('qr-scanner-page')">Go to QR Code Scanner</button>
+        </div>
+    </div>
+
+    <!-- QR Code Generator Page -->
+    <div id="qr-generator-page" class="page" style="display: none;">
+        <div class="container">
+            <button class="back-btn" onclick="navigateTo('home-page')">← Back</button>
+            <h1>QR Code Generator</h1>
+            <hr />
+            <div class="sqrcode"></div>
+            <div class="qrcode"></div>
+            <input type="text" placeholder="Paste a URL or enter text, then press enter" onchange="generateQr()" class="qr-input" />
+        </div>
+    </div>
+
+    <!-- QR Code Scanner Page -->
+    <div id="qr-scanner-page" class="page" style="display: none;">
+        <div class="container">
+            <button class="back-btn" onclick="navigateTo('home-page')">← Back</button>
+            <h1>Scan QR Codes</h1>
+            <div id="my-qr-reader"></div>
+
+            <div class="scanned-url-box">
+                <h2>Scanned QR Code URL:</h2>
+                <button id="scanned-url-button" style="display: none;" onclick="openScannedUrl()">Open URL</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation between pages
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
+            // Show the requested page
+            document.getElementById(pageId).style.display = 'block';
+        }
+
+        // QR Code Generator
+        let qrcode = new QRCode(document.querySelector(".qrcode"));
+        qrcode.makeCode("Why did you scan me?");
+
+        function generateQr() {
+            const input = document.querySelector("#qr-generator-page input");
+            if (input.value.trim() === "") {
+                alert("Input Field Cannot be blank!");
+            } else {
+                qrcode.makeCode(input.value);
+            }
+        }
+
+        // QR Code Scanner
+        function domReady(fn) {
+            if (document.readyState === "complete" || document.readyState === "interactive") {
+                setTimeout(fn, 1000);
+            } else {
+                document.addEventListener("DOMContentLoaded", fn);
+            }
+        }
+
+        domReady(function () {
+            const scannedUrlButton = document.getElementById('scanned-url-button');
+
+            // Handle QR code scanning from camera
+            function onScanSuccess(decodeText) {
+                scannedUrlButton.style.display = 'inline-block';
+                scannedUrlButton.textContent = decodeText; // Set button text
+                scannedUrlButton.dataset.url = decodeText; // Store URL
+            }
+
+            let htmlscanner = new Html5QrcodeScanner("my-qr-reader", { fps: 10, qrbox: 250 });
+            htmlscanner.render(onScanSuccess);
+        });
+
+        // Function to open the scanned URL in a new tab
+        function openScannedUrl() {
+            const url = document.getElementById('scanned-url-button').dataset.url;
+            window.open(url, "_blank");
+        }
+    </script>
+
+</body>
+
+</html>
+
+<style>
+    /* Global Styles */
+    body {
+        font-family: "Ubuntu", sans-serif;
+        background-color: #b3e5fc; /* Light blue background */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #333; /* Default text color */
+    }
+
+    .page {
+        width: 100%;
+        max-width: 900px;
+        text-align: center;
+    }
+
+    .home-container {
+        padding: 50px;
+    }
+
+    h1 {
+        font-size: 48px; /* Larger font size for the home page */
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    h2 {
+        font-size: 24px; /* Larger font size for the home page */
+        margin-bottom: 30px;
+        color: #555;
+    }
+
+    button {
+        padding: 15px 30px;
+        margin: 15px;
+        font-size: 18px;
+        color: #ffffff;
+        background-color: #A52A2A; /* Light brown color */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #8B4513; /* Darker brown for hover */
+    }
+
+    .scanned-url-box button {
+        background-color: #28a745;
+    }
+
+    .container {
+        padding: 30px;
+        box-sizing: border-box;
+        background-color: #ffffff; /* White box */
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: #f8d7da;
+        color: #721c24;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .back-btn:hover {
+        background-color: #f5c6cb;
+    }
+
+    /* Larger QR code generator input field */
+    .qr-input {
+        font-size: 18px;  /* Increase font size */
+        padding: 10px;
+        margin-top: 20px;
+        width: 100%;
+        max-width: 500px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+</style>
