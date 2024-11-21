@@ -7,15 +7,12 @@
     <title>QR Code Generator and Scanner</title>
     <link rel="stylesheet" href="style.css">
 
-    <!-- External QR code library for Generator -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <!-- External library for QR Code Reader -->
     <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 
 <body>
 
-    <!-- Home Page -->
     <div id="home-page" class="page">
         <div class="home-container">
             <h1>Welcome to our Website.</h1>
@@ -25,7 +22,6 @@
         </div>
     </div>
 
-    <!-- QR Code Generator Page -->
     <div id="qr-generator-page" class="page" style="display: none;">
         <div class="container">
             <button class="back-btn" onclick="navigateTo('home-page')">← Back</button>
@@ -37,7 +33,6 @@
         </div>
     </div>
 
-    <!-- QR Code Scanner Page -->
     <div id="qr-scanner-page" class="page" style="display: none;">
         <div class="container">
             <button class="back-btn" onclick="navigateTo('home-page')">← Back</button>
@@ -52,15 +47,15 @@
     </div>
 
     <script>
-        // Navigation between pages
+
         function navigateTo(pageId) {
-            // Hide all pages
+ 
             document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
-            // Show the requested page
+          
             document.getElementById(pageId).style.display = 'block';
         }
 
-        // QR Code Generator
+    
         let qrcode = new QRCode(document.querySelector(".qrcode"));
         qrcode.makeCode("Why did you scan me?");
 
@@ -73,7 +68,7 @@
             }
         }
 
-        // QR Code Scanner
+        
         function domReady(fn) {
             if (document.readyState === "complete" || document.readyState === "interactive") {
                 setTimeout(fn, 1000);
@@ -85,18 +80,18 @@
         domReady(function () {
             const scannedUrlButton = document.getElementById('scanned-url-button');
 
-            // Handle QR code scanning from camera
+            
             function onScanSuccess(decodeText) {
                 scannedUrlButton.style.display = 'inline-block';
-                scannedUrlButton.textContent = decodeText; // Set button text
-                scannedUrlButton.dataset.url = decodeText; // Store URL
+                scannedUrlButton.textContent = decodeText; 
+                scannedUrlButton.dataset.url = decodeText; 
             }
 
             let htmlscanner = new Html5QrcodeScanner("my-qr-reader", { fps: 10, qrbox: 250 });
             htmlscanner.render(onScanSuccess);
         });
 
-        // Function to open the scanned URL in a new tab
+        
         function openScannedUrl() {
             const url = document.getElementById('scanned-url-button').dataset.url;
             window.open(url, "_blank");
@@ -108,17 +103,17 @@
 </html>
 
 <style>
-    /* Global Styles */
+  
     body {
         font-family: "Ubuntu", sans-serif;
-        background-color: #b3e5fc; /* Light blue background */
+        background-color: #b3e5fc; 
         margin: 0;
         padding: 0;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        color: #333; /* Default text color */
+        color: #333; 
     }
 
     .page {
@@ -132,13 +127,13 @@
     }
 
     h1 {
-        font-size: 48px; /* Larger font size for the home page */
+        font-size: 48px; 
         margin-bottom: 20px;
         color: #333;
     }
 
     h2 {
-        font-size: 24px; /* Larger font size for the home page */
+        font-size: 24px; 
         margin-bottom: 30px;
         color: #555;
     }
@@ -148,7 +143,7 @@
         margin: 15px;
         font-size: 18px;
         color: #ffffff;
-        background-color: #A52A2A; /* Light brown color */
+        background-color: #A52A2A;
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -156,7 +151,7 @@
     }
 
     button:hover {
-        background-color: #8B4513; /* Darker brown for hover */
+        background-color: #8B4513; 
     }
 
     .scanned-url-box button {
@@ -166,7 +161,7 @@
     .container {
         padding: 30px;
         box-sizing: border-box;
-        background-color: #ffffff; /* White box */
+        background-color: #ffffff; 
         border-radius: 10px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     }
@@ -188,9 +183,9 @@
         background-color: #f5c6cb;
     }
 
-    /* Larger QR code generator input field */
+    
     .qr-input {
-        font-size: 18px;  /* Increase font size */
+        font-size: 18px;  
         padding: 10px;
         margin-top: 20px;
         width: 100%;
